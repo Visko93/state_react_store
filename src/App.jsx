@@ -2,25 +2,41 @@ import * as React from "react";
 
 import Footer from "./components/organisms/Footer";
 import Header from "./components/organisms/Header";
+import Spinner from "./components/atoms/Spinner";
 
-import { getProducts } from "./services/productService";
+import useFecth from "./components/hooks/useFetch";
 
 import "./App.css";
 
 export default function App() {
   const [size, setSize] = React.useState("");
-  const [products, setProducts] = React.useState([]);
-  const [error, setError] = React.useState(null);
+  const { data: products, error, loading } = useFecth(
+    "products?category=shoes"
+  );
 
-  React.useEffect(() => {
-    getProducts("shoes")
-      .then((res) => {
-        setProducts(res);
-      })
-      .catch((e) => {
-        setError(e);
-      });
-  }, [size]);
+  //Fecth Method
+  // React.useEffect(() => {
+  //   setLoading(true);
+  //   getProducts("shoes")
+  //     .then((res) => setProducts(res))
+  //     .catch((e) => setError(e))
+  //     .finally(() => setLoading(false));
+  // }, []);
+
+  // Async Method
+  // React.useEffect(() => {
+  //   async function init() {
+  //     try {
+  //       const res = await getProducts("shoes");
+  //       setProducts(res);
+  //     } catch (e) {
+  //       setError(e);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   init();
+  // }, []);
 
   function renderProduct(prod) {
     return (
@@ -42,6 +58,7 @@ export default function App() {
 
   // Caso haja algum erro evita que o componente seja retornado
   if (error) throw error;
+  if (loading) return <Spinner />;
 
   return (
     <>
