@@ -1,0 +1,7 @@
+footer {
+  text-align: center;
+  color: gray;
+  padding: 20px 0 20px 0;
+  flex-shrink: 0;
+  background-color: gainsboro;
+}
