@@ -4,11 +4,8 @@ import "./style.css";
 function Footer() {
   return (
     <footer>
-      <p>
-        This site is created for demonstrative purposes only and does not offer
-        any real products or services.
-      </p>
-      <p>&copy; Pluralsight 2020</p>
+      <p>Todos os direitos reservados</p>
+      <p>&copy; Doceslab 2020</p>
     </footer>
   );
 }
