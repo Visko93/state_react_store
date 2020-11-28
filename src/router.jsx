@@ -9,7 +9,8 @@ import CheckoutForm from "./components/organisms/CheckoutForm";
 function Routing() {
   const [cart, setCart] = React.useState(() => {
     try {
-      return JSON.parse(localStorage.getItem("cart")) ?? [];
+      const localCart = JSON.parse(localStorage.getItem("cart"));
+      return localCart.find((item) => item.quantity !== String(0)) ?? [];
     } catch (error) {
       console.error(
         `A aplicação não conseguiu recuperar o JSON, por: ${error}`
@@ -42,6 +43,9 @@ function Routing() {
       );
     });
   }
+  function emptyCart() {
+    setCart([]);
+  }
   return (
     <Routes>
       <Route exact path="/">
@@ -56,7 +60,10 @@ function Routing() {
         path="/cart"
         element={<Cart cart={cart} updateQuantity={updateQuantity} />}
       />
-      <Route path="/checkout" element={<CheckoutForm cart={cart} />} />
+      <Route
+        path="/checkout"
+        element={<CheckoutForm cart={cart} emptyCart={emptyCart} />}
+      />
     </Routes>
   );
 }

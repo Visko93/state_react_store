@@ -54,8 +54,6 @@ export default function Cart({ cart, updateQuantity }) {
     (acc, item) => acc + parseInt(item.quantity),
     0
   );
-  console.log(cart);
-
   return (
     <section id="cart">
       <h1>
@@ -66,7 +64,7 @@ export default function Cart({ cart, updateQuantity }) {
             }  no seu carrinho !`}
       </h1>
       <ul>{cart.map(renderItem)}</ul>
-      {Object.entries(cart).length > 0 ? (
+      {Object.entries(cart).length !== 0 ? (
         <button
           className="btn btn-primary"
           onClick={() => navigate("/checkout")}
