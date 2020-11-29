@@ -2,10 +2,13 @@ import * as React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import useFetch from "../../hooks/useFetch";
+import { useCart } from "../../../context/cartContext";
+
 import NotFound from "../NotFound";
 import Spinner from "../../atoms/Spinner";
 
-export default function Detail({ addToCart }) {
+export default function Detail() {
+  const { dispatch } = useCart();
   const { id } = useParams();
   const navigate = useNavigate();
   const [sku, setSku] = React.useState("");
@@ -41,7 +44,7 @@ export default function Detail({ addToCart }) {
             disabled={!sku}
             className="btn btn-primary"
             onClick={() => {
-              addToCart(id, sku);
+              dispatch({ type: "add", id, sku });
               navigate("/cart");
             }}
           >

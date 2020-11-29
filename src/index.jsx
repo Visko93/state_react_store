@@ -2,14 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 
-import App from "./App";
 import ErrorBoundary from "./errors/ErrorBoundry";
+import { CartProvider } from "./context/cartContext";
+
+import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
       <BrowserRouter>
-        <App />
+        <CartProvider>
+          <App />
+        </CartProvider>
       </BrowserRouter>
     </ErrorBoundary>
   </React.StrictMode>,

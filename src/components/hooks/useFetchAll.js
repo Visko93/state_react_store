@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-export default function useFecth(urls) {
+export default function useFecthAll(urls) {
   const prevUrls = useRef([]);
 
   const [data, setData] = useState(null);
@@ -14,6 +14,7 @@ export default function useFecth(urls) {
       return;
     }
     prevUrls.current = urls;
+
     const promises = urls.map((url) =>
       fetch(baseUrl + url).then((res) => {
         if (res.ok) return res.json();
@@ -24,7 +25,7 @@ export default function useFecth(urls) {
     Promise.all(promises)
       .then((json) => setData(json))
       .catch((e) => {
-        console.log(e);
+        console.error(e);
         setError(e);
       })
       .finally(() => setLoading(false));

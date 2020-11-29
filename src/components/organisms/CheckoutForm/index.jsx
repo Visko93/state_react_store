@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useCart } from "../../../context/cartContext";
 import { saveShippingAddress } from "../../../services/shippingService";
 
 const amptyAddress = {
@@ -12,11 +13,12 @@ const STATUS = {
   COMPLETED: "COMPLETED",
 };
 
-function CheckoutForm({ cart, emptyCart }) {
+function CheckoutForm() {
   const [address, setAddress] = React.useState(amptyAddress);
   const [status, setStatus] = React.useState(STATUS.IDLE);
   const [saveError, setSaveError] = React.useState(null);
   const [touched, setTouched] = React.useState({});
+  const { cart, dispatch } = useCart();
 
   // Stato Derivado
   const errors = getErrors(address);
@@ -46,7 +48,7 @@ function CheckoutForm({ cart, emptyCart }) {
     if (isValid) {
       try {
         await saveShippingAddress(address);
-        emptyCart();
+        dispatch({ type: "empty" });
         setStatus(STATUS.COMPLETED);
       } catch (e) {
         setSaveError(e);
