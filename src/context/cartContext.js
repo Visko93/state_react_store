@@ -42,5 +42,10 @@ export function CartProvider(props) {
 
 export function useCart() {
   const context = React.useContext(CartContext);
+  if (!context) {
+    throw new Error(
+      "useCart precisa ter um Context Provider implementado. Inclua o componente pai comum dentro de <CartProvider />"
+    );
+  }
   return context;
 }
