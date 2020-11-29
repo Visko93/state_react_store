@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import Products from "./components/pages/Products";
 import DetailProduct from "./components/pages/DetailProduct";
+// import DetailRef from "./components/pages/DetailProduct_refs";
 import Cart from "./components/pages/Cart";
 import CheckoutForm from "./components/organisms/CheckoutForm";
 
@@ -56,6 +57,10 @@ function Routing() {
         path="/:category/:id"
         element={<DetailProduct addToCart={addToCart} />}
       />
+      {/* <Route
+        path="/:category/:id"
+        element={<DetailRef addToCart={addToCart} />}
+      /> */}
       <Route
         path="/cart"
         element={<Cart cart={cart} updateQuantity={updateQuantity} />}
